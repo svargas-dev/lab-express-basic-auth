@@ -25,4 +25,10 @@ router.get('/private', routeGuard, (req, res, next) => {
   res.render('private')
 })
 
+router.get('/profile', routeGuard, (req, res, next) => {
+  // console.log(res.locals.user);
+  let user = res.locals.user;
+  res.render('profile', { user });
+})
+
 module.exports = router;

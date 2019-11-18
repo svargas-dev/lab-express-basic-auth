@@ -100,9 +100,9 @@ app.use((req, res, next) => {
 });
 
 
-
 // Use one central router
 app.use('/', indexRouter);
+
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
