@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const serveFavicon = require('serve-favicon');
+const hbs = require('hbs');
 
 const indexRouter = require('./routes/index');
 
@@ -15,6 +16,7 @@ const app = express();
 // Setup view engine
 app.set('views', join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+hbs.registerPartials(join(__dirname, '/views/partials'));
 
 app.use(logger('dev'));
 app.use(express.json());
