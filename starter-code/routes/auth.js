@@ -67,7 +67,7 @@ router.post('/sign-in', (req, res, next) => {
         // If there is an user,
         // save their ID to an auxiliary variable
         userId = user._id;
-        console.log(userId);
+        console.log("logging", userId);
         // Compare the password with the salt + hash stored in the user document
         return bcryptjs.compare(password, user.passwordHash);
       }
@@ -75,7 +75,7 @@ router.post('/sign-in', (req, res, next) => {
     .then(result => {
       if (result) {
         // If they match, the user has successfully been signed in
-        // req.session.user = userId;
+        req.session.user = userId;
         console.log('Log in successful');
         res.redirect('/');
       } else {

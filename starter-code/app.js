@@ -9,9 +9,9 @@ const sassMiddleware = require('node-sass-middleware');
 const serveFavicon = require('serve-favicon');
 const hbs = require('hbs');
 const mongoose = require('mongoose');
+const User = require('./models/user');
 const indexRouter = require('./routes/index');
 
-const app = express();
 
 // Authentication logic
 const cookieParser = require('cookie-parser');
@@ -21,6 +21,7 @@ const connectMongo = require('connect-mongo');
 const MongoStore = connectMongo(expressSession);
 
 
+const app = express();
 // Setup view engine
 app.set('views', join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -78,6 +79,7 @@ app.use(
 // If so, load the user from the database and bind it into req.user
 app.use((req, res, next) => {
   const userId = req.session.user;
+  // console.log(userId)
   if (userId) {
     User.findById(userId)
       .then(user => {
@@ -98,9 +100,9 @@ app.use((req, res, next) => {
 });
 
 
+
 // Use one central router
 app.use('/', indexRouter);
-
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
@@ -113,7 +115,7 @@ app.use((error, req, res, next) => {
   // Set error information, with stack only available in development
   res.locals.message = error.message;
   res.locals.error = req.app.get('env') === 'development' ? error : {};
-
+  
   res.status(error.status || 500);
   res.render('error');
 });
