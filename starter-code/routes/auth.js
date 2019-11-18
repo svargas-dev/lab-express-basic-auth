@@ -11,7 +11,7 @@ const bcryptjs = require('bcryptjs');
 //@desc   get sing-up form
 //@access public
 router.get('/sign-up', (req, res, next) => {
-  res.render('sign-up');
+  res.render('auth/sign-up');
 });
 
 
@@ -44,7 +44,7 @@ router.post('/sign-up', (req, res, next) => {
 //@desc   get sing-in form
 //@access public
 router.get('/sign-in', (req, res, next) => {
-  res.render('sign-in');
+  res.render('auth/sign-in');
   // console.log(req.body);
 });
 
