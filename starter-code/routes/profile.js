@@ -20,22 +20,22 @@ router.get('/', routeGuard, (req, res, next) => {
 //@access private
 router.get('/edit', routeGuard, (req, res, next) => {
   const user = res.locals.user;
-  console.log('User details', user);
+  console.log('User details from /res.locals.user', user);
+  console.log('User details from req.user', req.user);
+  console.log('User details from req.session.user', req.session.user);
   res.render('profile/profile-edit', { user });
 });
 
-//@POST    /profile/edit
+//@POST   /profile/edit
 //@desc   display user info
 //@access private
-// router.post('/edit', routeGuard, (req, res, next) => {
-//   const { name } = req.body;
-//   // console.log({ name });
-//   User.findOneAndUpdate
-//     .then(user => {
-//       res.redirect('/profile');
-//     })
-//     .catch(err => next(err))
-// });
+router.post('/edit', routeGuard, (req, res, next) => {
+  User.findOneAndUpdate({ _id: req.user._id }, { name: req.body.name })
+    .then(user => {
+      res.redirect('/profile');
+    })
+    .catch(err => next(err));
+});
 
 
 module.exports = router;

@@ -4,7 +4,10 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    default: ''
+  },
   username: {
     type: String,
     required: true,
